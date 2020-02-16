@@ -1,0 +1,8 @@
+{
+  "events": "Events",
+  "createEvent": "Create event",
+  "nameLabel": "Name",
+  "namePlaceholder": "Event name",
+  "descriptionLabel": "Description",
+  "descriptionPlaceholder": "Event description..."
+}
