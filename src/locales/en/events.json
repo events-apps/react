@@ -1,6 +1,7 @@
 {
   "events": "Events",
   "createEvent": "Create event",
+  "deleteEvent": "Delete event",
   "nameLabel": "Name",
   "namePlaceholder": "Event name",
   "descriptionLabel": "Description",

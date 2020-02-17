@@ -1,10 +1,17 @@
 import React from 'react';
+import Loadable from 'react-loadable';
 import { Router } from '@reach/router';
 
 import Home from './modules/home/Home';
-import Events from './modules/events/Events';
 import PageContent from './components/PageContent';
 import PageHeader from './components/PageHeader';
+
+const AsyncEvents = Loadable({
+  loader: () => import('./modules/events/Events'),
+  loading() {
+    return <div>Loading...</div>;
+  },
+});
 
 const App = () => {
   return (
@@ -13,7 +20,7 @@ const App = () => {
       <PageContent>
         <Router>
           <Home path="/" />
-          <Events path="events/*" />
+          <AsyncEvents path="events/*" />
         </Router>
       </PageContent>
     </>

@@ -1,44 +1,36 @@
-import React from 'react';
-import { RouteComponentProps } from '@reach/router';
+import React, { useEffect, useState } from 'react';
+import { RouteComponentProps, Link } from '@reach/router';
 import { useTranslation } from 'react-i18next';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import LinkAsButton from '../../../components/LinkAsButton';
+import LinkAsButton from '../../../components/buttons/LinkAsButton';
 import EventItem from '../components/EventItem';
 import { Event } from '../models/event';
-
-const events: Event[] = [
-  {
-    name: 'test 1',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
-    tags: ['programming', 'architecture'],
-  },
-  {
-    name: 'test 2',
-    description: 'Voluptatibus quia, nulla!',
-    tags: ['photography', 'lenses'],
-  },
-  {
-    name: 'test 3',
-    description: 'Maiores et perferendis eaque, exercitationem praesentium nihil.',
-  },
-  {
-    name: 'test 4',
-  },
-];
+import { fetchEvents } from '../api';
 
 const EventList: React.FC<RouteComponentProps> = () => {
   const { t } = useTranslation('events');
+  const [events, setEvents] = useState<Event[]>([]);
+
+  useEffect(() => {
+    fetchEvents().then(e => setEvents(e));
+  });
 
   return (
     <div className="w-full">
       <div className="flex justify-between">
         <h1 className="font-bold text-xl text-gray-800">{t('events')}</h1>
-        <LinkAsButton to="create">{t('createEvent')}</LinkAsButton>
+        <LinkAsButton to="create">
+          <FontAwesomeIcon icon="plus" className="mr-2" />
+          {t('createEvent')}
+        </LinkAsButton>
       </div>
       <div className="flex flex-wrap -mx-3">
         {events.map(event => (
           <div key={event.name} className="w-full sm:w-1/2 md:w-1/3 xl:w-1/4 p-3">
-            <EventItem event={event} />
+            <Link to={event.id}>
+              <EventItem event={event} />
+            </Link>
           </div>
         ))}
       </div>

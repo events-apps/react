@@ -2,21 +2,29 @@ import React from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { useForm, FormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import SubmitButton from '../../../components/SubmitButton';
+import { Event } from '../models/event';
+import { createEvent } from '../api';
+import SubmitButton from '../../../components/buttons/SubmitButton';
 import FormInput from '../../../components/FormInput';
 import FormTextarea from '../../../components/FormTextarea';
-import { Event } from '../models/event';
+import SecondaryButton from '../../../components/buttons/SecondaryButton';
 
 const CreateEvent: React.FC<RouteComponentProps> = ({ navigate }) => {
   const formMethods = useForm<Event>();
   const { t } = useTranslation(['events', 'common']);
   const { handleSubmit } = formMethods;
 
-  const onSubmit = handleSubmit(values => {
-    console.log(values);
-    if (navigate) navigate('..');
+  const onSubmit = handleSubmit(event => {
+    createEvent(event).then(() => {
+      if (navigate) navigate('/events');
+    });
   });
+
+  const onCancel = () => {
+    if (navigate) navigate('/events');
+  };
 
   return (
     <div className="w-full">
@@ -36,8 +44,13 @@ const CreateEvent: React.FC<RouteComponentProps> = ({ navigate }) => {
             labelText={t('events:descriptionLabel')}
             placeholder={t('events:descriptionPlaceholder')}
           />
-          <div className="flex items-center justify-between">
-            <SubmitButton>{t('common:save')}</SubmitButton>
+          <div className="flex items-center">
+            <div className="mr-2">
+              <SubmitButton>
+                <FontAwesomeIcon icon="save" className="mr-2" /> {t('common:save')}
+              </SubmitButton>
+            </div>
+            <SecondaryButton onClick={onCancel}> {t('common:cancel')}</SecondaryButton>
           </div>
         </form>
       </FormContext>
