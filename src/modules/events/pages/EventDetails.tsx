@@ -19,8 +19,8 @@ const EventDetails: React.FC<EventDetailsProps> = ({ eventId, navigate }) => {
   useEffect(() => {
     if (!eventId) return;
 
-    fetchEvent(eventId).then(e => setEvent(e));
-  });
+    fetchEvent(eventId).then(response => setEvent(response.data.data));
+  }, [eventId]);
 
   if (!eventId) return <Redirect to=".." />;
   if (!event) return <div>Loading</div>;

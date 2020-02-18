@@ -20,23 +20,15 @@ module.exports = {
     jest: true,
   },
   rules: {
-    'import/extensions': ['error', {
-      js: 'never',
-      jsx: 'never',
-      ts: 'never',
-      tsx: 'never',
-    }],
-    'react/jsx-filename-extension': [1, {
-      extensions: ['.js', 'jsx', 'tsx']
-    }],
+    'import/extensions': ['error', { js: 'never', jsx: 'never', ts: 'never', tsx: 'never' }],
+    'react/jsx-filename-extension': [1, { extensions: ['.js', 'jsx', 'tsx'] }],
     'react/prop-types': [0],
-    '@typescript-eslint/explicit-function-return-type': 'off',
+    'no-underscore-dangle': ['error', { allow: ['_id'] }],
     'import/prefer-default-export': 'off',
+    '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-non-null-assertion': 'off',
-    '@typescript-eslint/no-unused-vars': ['error', {
-      'argsIgnorePattern': '^_'
-    }]
+    '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
   },
   settings: {
     react: {

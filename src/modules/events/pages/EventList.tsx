@@ -13,8 +13,8 @@ const EventList: React.FC<RouteComponentProps> = () => {
   const [events, setEvents] = useState<Event[]>([]);
 
   useEffect(() => {
-    fetchEvents().then(e => setEvents(e));
-  });
+    fetchEvents().then(response => setEvents(response.data.data));
+  }, []);
 
   return (
     <div className="w-full">
@@ -28,7 +28,7 @@ const EventList: React.FC<RouteComponentProps> = () => {
       <div className="flex flex-wrap -mx-3">
         {events.map(event => (
           <div key={event.name} className="w-full sm:w-1/2 md:w-1/3 xl:w-1/4 p-3">
-            <Link to={event.id}>
+            <Link to={event._id}>
               <EventItem event={event} />
             </Link>
           </div>
